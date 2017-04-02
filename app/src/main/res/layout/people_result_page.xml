@@ -94,7 +94,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="16dp"
-                android:paddingRight="16dp">
+                android:paddingRight="16dp"
+                android:weightSum="1">
 
                 <TextView
                     android:id="@+id/building"
@@ -105,9 +106,17 @@
 
                 <TextView
                     android:id="@+id/buildingView"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="12dp" />
+
+                <Button
+                    android:id="@+id/mapButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_shape"
+                    android:textColor="@color/white"
+                    android:text="แผนที่" />
 
             </LinearLayout>
 
@@ -180,5 +189,7 @@
         </LinearLayout>
 
     </ScrollView>
+
+
 
 </LinearLayout>

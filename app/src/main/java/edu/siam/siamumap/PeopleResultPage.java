@@ -1,6 +1,7 @@
 package edu.siam.siamumap;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -9,8 +10,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
@@ -36,6 +40,7 @@ public class PeopleResultPage extends ActionBarActivity {
 
     ImageView imageView;
     TextView nameView, facultyView, departmentView, buildingView, roomView, telView, emailView;
+    Button mapButton;
 
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -59,9 +64,23 @@ public class PeopleResultPage extends ActionBarActivity {
         facultyView = (TextView) findViewById(R.id.facultyView);
         departmentView = (TextView) findViewById(R.id.departmentView);
         buildingView = (TextView) findViewById(R.id.buildingView);
+        mapButton = (Button) findViewById(R.id.mapButton);
         roomView = (TextView) findViewById(R.id.roomView);
         telView = (TextView) findViewById(R.id.telView);
         emailView = (TextView) findViewById(R.id.emailView);
+
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(getApplicationContext(), people.getLatitude()+" "+people.getLongitude(),
+//                        Toast.LENGTH_LONG).show();
+                //Intent = Gotopage
+                Intent intent = new Intent(getApplicationContext(), MapPage.class);
+                intent.putExtra("lat", people.getLatitude());
+                intent.putExtra("lng", people.getLongitude());
+                startActivity(intent);
+            }
+        });
 
         new getPeopleById().execute();
     }
@@ -98,7 +117,7 @@ public class PeopleResultPage extends ActionBarActivity {
             soapEnvelope.dotNet = true;
             soapEnvelope.setOutputSoapObject(request);
 
-            HttpTransportSE aht = new HttpTransportSE(webserviceURL);// aht = androidHttpTransport
+            HttpTransportSE aht = new HttpTransportSE(webserviceURL, 30000);// aht = androidHttpTransport
             aht.debug = true;
             try {
                 aht.call(soapAction, soapEnvelope);
@@ -116,6 +135,12 @@ public class PeopleResultPage extends ActionBarActivity {
                 }
                 if (response.hasProperty("buildingNo")) {
                     people.setPeopleBuilding(response.getPropertyAsString("buildingNo"));
+                }
+                if (response.hasProperty("latitude")) {
+                    people.setLatitude(Double.parseDouble(response.getPropertyAsString("latitude")));
+                }
+                if (response.hasProperty("longitude")) {
+                    people.setLongitude(Double.parseDouble(response.getPropertyAsString("longitude")));
                 }
                 if (response.hasProperty("roomNo")) {
                     people.setPeopleRoom(response.getPropertyAsString("roomNo"));

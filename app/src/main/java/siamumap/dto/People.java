@@ -15,6 +15,8 @@ public class People {
     protected String peopleEmail;
     protected String peopleTel;
     protected Bitmap peopleImage;
+    protected Double latitude;
+    protected Double longitude;
 
     public String getPeopleID() {
         return peopleID;
@@ -86,5 +88,21 @@ public class People {
 
     public void setPeopleTel(String peopleTel) {
         this.peopleTel = peopleTel;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }

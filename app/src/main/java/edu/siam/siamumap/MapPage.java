@@ -2,6 +2,7 @@ package edu.siam.siamumap;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -66,6 +67,7 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback, Go
     private static String soapAction = "http://siamUMapService.org/findAllBuilding";
 
     private ArrayList<Building> buildings = new ArrayList<Building>();
+    private Double lat,lng;
 
     GoogleMap googleMap;
     SupportMapFragment mapFragment;
@@ -86,6 +88,16 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback, Go
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_page);
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            lat = extras.getDouble("lat", 13.7190402);
+            lng = extras.getDouble("lng", 100.4531406);
+        } else {
+            lat = 13.7190402;
+            lng = 100.4531406;
+        }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -190,7 +202,7 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback, Go
             googleMap.setMyLocationEnabled(true);
         }
 
-        LatLng SiamU = new LatLng(13.7190402, 100.4531406);
+        LatLng SiamU = new LatLng(lat, lng);
         CameraPosition target = CameraPosition.builder().target(SiamU).zoom(18).build();
         googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(target));
 

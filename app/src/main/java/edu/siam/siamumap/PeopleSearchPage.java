@@ -172,7 +172,7 @@ public class PeopleSearchPage extends ActionBarActivity {
             soapEnvelope.dotNet = true;
             soapEnvelope.setOutputSoapObject(request);
             //Old = androidHttpTransport >>> New = HttpTransportSE
-            HttpTransportSE aht = new HttpTransportSE(webserviceURL);// aht = androidHttpTransport
+            HttpTransportSE aht = new HttpTransportSE(webserviceURL, 500000);// aht = androidHttpTransport
             aht.debug = true;
             try {
                 aht.call(soapAction, soapEnvelope);

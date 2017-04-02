@@ -18,17 +18,20 @@ import android.provider.Settings;
 public class AppMethod {
 
     public void openPermisson() {
-//        if (android.os.Build.VERSION.SDK_INT > 9) {
-//            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-//            StrictMode.setThreadPolicy(policy);
-//        }
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
     }
 
     public String setWebserviceURL() {
 //          connection always close when use 3bb ip
 //          String webserviceUrl = "http://192.168.43.80:8254/Service.asmx"; // all code work normally by share 3bb ip to wifi
 //        String webserviceUrl = "http://192.168.43.235:50667/Service.asmx";
-        String webserviceUrl = "http://192.168.137.1:50667/Service.asmx"; // home share wifi
+//        String webserviceUrl = "http://192.168.137.1:50667/Service.asmx"; // home share wifi
+        String webserviceUrl = "http://192.168.137.1:52148/Service.asmx"; // home share wifi
+//        String webserviceUrl = "http://192.168.43.161:8254/Service.asmx";
+
         return webserviceUrl;
     }
 
